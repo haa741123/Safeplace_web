@@ -1,0 +1,97 @@
+body {
+    background-color: #4a4a4a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Pretendard', sans-serif;
+}
+.app-container {
+    width: 100dvh;
+    height: 100dvh;
+    background-color: #9b9b9b;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Pretendard', sans-serif;
+}
+.header {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #ffffff;   
+}
+.loc_main {
+    margin-top: 10dvh;
+    font-size: 35px;
+    
+}
+.loc_type {
+    margin-top: 10px;
+    font-size: 55px;
+    font-weight: bold;
+}
+.content {
+    height: 60dvh;
+    background-color: #000000;
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 10px;
+    margin-bottom: 10px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+}
+.humidity {
+    font-size: 48px;
+    font-weight: bold;
+}
+.status {
+    color: #a3ff00;
+    font-weight: bold;
+}
+.date-time {
+    font-size: 14px;
+    color: #adb5bd;
+}
+.toggle-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.form-switch .form-check-input {
+    background-color: #adb5bd;
+    border-color: #ffffff;
+}
+.form-switch .form-check-input:checked {
+    background-color: #a3ff00;
+    border-color: #a3ff00;
+}
+.form-check-label {
+    color:#2c2f35;
+    font-weight: bold;
+}
+#density_title {
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: bold;
+}
+#density_val {
+    font-size: 64px;
+    color: #ffffff;
+}
+#density_stage {
+    font-size: 32px;
+    color: #b1f936;
+}
+#server_time {
+    font-size: 16px;
+    color: #adb5bd;
+}
