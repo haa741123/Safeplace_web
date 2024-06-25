@@ -14,8 +14,7 @@
     
     <div class="app-container">
         <div class="header">
-            <h5 class="loc_main mb-0">서울특별시</h5>
-            <h4 class="loc_type mb-0">중구</h4>
+            <h5 id="loc_main" class="loc_main mb-0">서울특별시</h5>
         </div>
         <div class="content">
             <p id="density_title" class="mb-1 mt-2">현재 밀집도</p>
@@ -30,9 +29,18 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=dk2zYLr0F0a2sZiMeZo8c4dNNUBSOH177Iu95CNd"></script>
+    <script src="/static/js/jihoon.js"></script>
+    <script src="/static/js/hamin.js"></script>
     <script>
-        const key = "dk2zYLr0F0a2sZiMeZo8c4dNNUBSOH177Iu95CNd";
+        const key = h_config.apikey;
+        // const key = j_config.apikey;
+
+        $.getScript('https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey='+key, function() {
+            console.log('로드 완료');
+        }).fail(function(jqxhr, settings, exception) {
+            console.error('TMap JavaScript API 로드 실패', exception);
+        });
+        
 
         // 페이지가 로딩이 된 후 호출하는 함수입니다.
         function initTmap() {
@@ -43,7 +51,7 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showCurrentLocation, locationError);
             } else {
-                alert("Geolocation is not supported by this browser.");
+                alert("위치 정보를 지원하지 않는 기종입니다.");
             }
         }
 
@@ -79,7 +87,7 @@
                         const url = `https://apis.openapi.sk.com/tmap/puzzle/pois/${poiId}?format=json&appKey=${key}&lat=${currentLat}&lng=${currentLon}`;
                         puzzle(url, name);
                     } else {
-                        console.log("No POI information found.");
+                        console.log("위치 정보를 찾을 수 없습니다.");
                     }
                 },
                 error: function(request, status, error) {
@@ -93,7 +101,15 @@
                 method: "GET",
                 url: url,
                 success: function(response) {
+                    console.log(response);
+                    
+                    const parts = response.contents.poiName;
+
+                    // 첫 번째 요소는 건물 이름이므로 공백을 제거하고 출력
+                    const buildingName = parts;
+
                     const rltm = response.contents.rltm;
+                    
                     if (rltm && rltm.length > 0) {
                         const data = rltm.find(item => item.type === 2);
                         if (data) {
@@ -130,7 +146,10 @@
 
 
                             const result = `${name}, [${congestText}, ${congestionPercentage}명/100m²], ${dateStr}`;
-                            console.log(result);
+                            
+                            $("#loc_main").text(buildingName);
+
+                            console.log(buildingName);
 
                             // 측정된 시간을 화면에 표시
                             console.log(date);  
@@ -138,8 +157,11 @@
                             $('#server_time').text(time);
                             $('#density_stage').text(congestText);
                         } else {
-                            console.log(`${name}, 해당 좌표는 실시간 장소 혼잡도를 지원하고 있지 않습니다.`);
+                            console.log(`해당 위치는 실시간 장소 혼잡도를 지원하고 있지 않습니다.`);
                         }
+                    }
+                    else {
+
                     }
                 },
                 error: function(request, status, error) {
