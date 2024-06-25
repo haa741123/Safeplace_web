@@ -11,7 +11,6 @@ body {
     width: 100dvh;
     height: 100dvh;
     background-color: #9b9b9b;
-    border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
     position: relative;
@@ -36,13 +35,27 @@ body {
     font-weight: bold;
 }
 .content {
-    height: 60dvh;
+    height: 41dvh;
     background-color: #000000;
     color: white;
     padding: 20px;
     border-radius: 20px;
     margin: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 60vw;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+}
+
+.alarm{
+    height: 12dvh;
+    background-color: #D9D9D9;
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 10px;
+    margin-bottom: 28vw;
     position: absolute;
     bottom: 10px;
     left: 10px;
@@ -56,42 +69,23 @@ body {
     color: #a3ff00;
     font-weight: bold;
 }
-.date-time {
-    font-size: 14px;
+.date_time {
+    font-size: 20px;
     color: #adb5bd;
 }
-.toggle-container {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-}
-.form-switch .form-check-input {
-    background-color: #adb5bd;
-    border-color: #ffffff;
-}
-.form-switch .form-check-input:checked {
-    background-color: #a3ff00;
-    border-color: #a3ff00;
-}
-.form-check-label {
-    color:#2c2f35;
-    font-weight: bold;
-}
+
 #density_title {
-    font-size: 18px;
+    font-size: 25px;
     color: #ffffff;
     font-weight: bold;
 }
 #density_val {
-    font-size: 64px;
+    font-size: 65px;
     color: #ffffff;
+    font-weight: bold;
+
 }
 #density_stage {
-    font-size: 32px;
+    font-size: 65px;
     color: #b1f936;
-}
-#server_time {
-    font-size: 16px;
-    color: #adb5bd;
 }
