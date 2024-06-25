@@ -35,32 +35,20 @@ body {
     font-weight: bold;
 }
 .content {
-    height: 41dvh;
+    height: 61dvh;
     background-color: #000000;
     color: white;
     padding: 20px;
     border-radius: 20px;
     margin: 10px;
-    margin-bottom: 60vw;
+    margin-bottom: 10vw;
     position: absolute;
     bottom: 10px;
     left: 10px;
     right: 10px;
 }
 
-.alarm{
-    height: 12dvh;
-    background-color: #D9D9D9;
-    color: white;
-    padding: 20px;
-    border-radius: 20px;
-    margin: 10px;
-    margin-bottom: 28vw;
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
-}
+
 .humidity {
     font-size: 48px;
     font-weight: bold;
@@ -70,7 +58,7 @@ body {
     font-weight: bold;
 }
 .date_time {
-    font-size: 20px;
+    font-size: 1.25rem;
     color: #adb5bd;
 }
 
@@ -80,12 +68,12 @@ body {
     font-weight: bold;
 }
 #density_val {
-    font-size: 65px;
+    font-size: 4.063rem;
     color: #ffffff;
     font-weight: bold;
 
 }
 #density_stage {
-    font-size: 65px;
+    font-size: 4.063rem;
     color: #b1f936;
 }
