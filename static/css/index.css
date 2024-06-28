@@ -143,3 +143,12 @@ body {
         margin-bottom: 3vh;
     }
 }
+
+.fade-in {
+    animation: fadeIn 0.1s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+}
