@@ -26,7 +26,8 @@ body {
 }
 .loc_main {
     margin-top: 10dvh;
-    font-size: 35px;
+    font-size: 45px;
+    font-weight: bold;
     
 }
 .loc_type {
@@ -76,4 +77,14 @@ body {
 #density_stage {
     font-size: 4.063rem;
     color: #b1f936;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.blink {
+    animation: blink 1.0s infinite; /* 깜빡이는 속도를 0.5초로 설정 */
 }
