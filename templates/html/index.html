@@ -182,16 +182,16 @@
                             const stageElement = document.getElementById('density_stage');
                             switch(congestText) {
                                 case "여유":
-                                    stageElement.style.color = 'blue';
+                                    stageElement.style.color = '#1D64F2';
                                     break;
                                 case "보통":
-                                    stageElement.style.color = 'green';
+                                    stageElement.style.color = '#BFF207';
                                     break;
                                 case "혼잡":
-                                    stageElement.style.color = 'orange';
+                                    stageElement.style.color = '#F2A950';
                                     break;
                                 case "매우 혼잡":
-                                    stageElement.style.color = 'red';
+                                    stageElement.style.color = '#F24822';
                                     break;
                                 default:
                                     stageElement.style.color = 'black';
@@ -202,16 +202,16 @@
                             statusElement.classList.remove('blink'); // 기존 깜빡임 효과 제거
                             switch(statusText) {
                                 case "안전합니다":
-                                    statusElement.style.color = 'blue';
+                                    statusElement.style.color = '#1D64F2';
                                     break;
                                 case "보통입니다":
-                                    statusElement.style.color = 'green';
+                                    statusElement.style.color = '#BFF207';
                                     break;
                                 case "주의하세요":
-                                    statusElement.style.color = 'orange';
+                                    statusElement.style.color = '#F2A950';
                                     break;
                                 case "위험합니다":
-                                    statusElement.style.color = 'red';
+                                    statusElement.style.color = '#F24822';
                                     statusElement.classList.add('blink'); // 깜빡임 효과 추가
                                     break;
                                 default:

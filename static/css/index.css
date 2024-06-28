@@ -7,10 +7,11 @@ body {
     margin: 0;
     font-family: 'Pretendard', sans-serif;
 }
+
 .app-container {
-    width: 100dvh;
-    height: 100dvh;
-    background-color: #9b9b9b;
+    width: 100vw;
+    height: 100vh;
+    background-color: #212226;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
     position: relative;
@@ -18,25 +19,28 @@ body {
     flex-direction: column;
     font-family: 'Pretendard', sans-serif;
 }
+
 .header {
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
     color: #ffffff;   
 }
+
 .loc_main {
-    margin-top: 10dvh;
-    font-size: 45px;
+    margin-top: 10vh;
+    font-size: 4.5vw;
     font-weight: bold;
-    
 }
+
 .loc_type {
     margin-top: 10px;
-    font-size: 55px;
+    font-size: 5.5vw;
     font-weight: bold;
 }
+
 .content {
-    height: 61dvh;
+    height: 61vh;
     background-color: #000000;
     color: white;
     padding: 20px;
@@ -49,33 +53,35 @@ body {
     right: 10px;
 }
 
-
 .humidity {
-    font-size: 48px;
+    font-size: 4.8vw;
     font-weight: bold;
 }
+
 .status {
     color: #a3ff00;
     font-weight: bold;
 }
+
 .date_time {
     font-size: 1.25rem;
     color: #adb5bd;
 }
 
 #density_title {
-    font-size: 25px;
+    font-size: 5vw;
     color: #ffffff;
     font-weight: bold;
 }
-#density_val {
-    font-size: 4.063rem;
-    color: #ffffff;
-    font-weight: bold;
 
+#density_val {
+    font-size: 15rem;
+    color: #ffffff;
+    font-weight: bold;
 }
+
 #density_stage {
-    font-size: 4.063rem;
+    font-size: 15rem;
     color: #b1f936;
 }
 
@@ -87,4 +93,53 @@ body {
 
 .blink {
     animation: blink 1.0s infinite; /* 깜빡이는 속도를 0.5초로 설정 */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .loc_main {
+        font-size: 6vw;
+    }
+
+    .loc_type {
+        font-size: 7vw;
+    }
+
+    .humidity {
+        font-size: 6vw;
+    }
+
+    #density_val,
+    #density_stage {
+        font-size: 3rem;
+    }
+
+    .content {
+        height: 55vh;
+        margin-bottom: 5vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .loc_main {
+        font-size: 8vw;
+    }
+
+    .loc_type {
+        font-size: 9vw;
+    }
+
+    .humidity {
+        font-size: 7vw;
+    }
+
+    #density_val,
+    #density_stage {
+        font-size: 2.5rem;
+    }
+
+    .content {
+        height: 50vh;
+        margin-bottom: 3vh;
+    }
 }
