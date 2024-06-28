@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -35,11 +35,49 @@
         const key = h_config.apikey;
         // const key = j_config.apikey;
 
-        $.getScript('https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey='+key, function() {
-            console.log('로드 완료');
-        }).fail(function(jqxhr, settings, exception) {
-            console.error('TMap JavaScript API 로드 실패', exception);
-        });
+        function loadTMapScript(key) {
+            $.ajax({
+                url: 'https://apis.openapi.sk.com/tmap/jsv2',
+                data: {
+                    version: '1',
+                    appKey: key
+                },
+                dataType: 'script',
+                success: function() {
+                    console.log('로드 완료');
+                },
+                error: function(jqxhr, settings, exception) {
+                    console.error('TMap JavaScript API 로드 실패', exception);
+                }
+            });
+        }
+
+        // 예시로 key 변수를 설정하고 함수 호출
+        loadTMapScript(key);
+
+        // Flutter로부터 위치 데이터를 받는 함수
+        function sendLocation(latitude, longitude) {
+            const currentLat = latitude;
+            const currentLon = longitude;
+
+            // JavaScript 로그로 좌표 출력
+            console.log("Received location from Flutter: Latitude = " + currentLat + ", Longitude = " + currentLon);
+
+            // 위치 정보를 표시할 HTML 요소가 존재하는지 확인
+            const $latElement = $('#latitude');
+            const $lonElement = $('#longitude');
+
+            if ($latElement.length && $lonElement.length) {
+                $latElement.text("Latitude: " + currentLat);
+                $lonElement.text("Longitude: " + currentLon);
+            } else {
+                console.log("Location elements not found");
+            }
+
+            // Flutter로부터 받은 위치 정보를 기반으로 reverseLabel 함수 호출
+            reverseLabel(currentLon, currentLat);
+        }
+
         
 
         // 페이지가 로딩이 된 후 호출하는 함수입니다.
@@ -51,7 +89,13 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showCurrentLocation, locationError);
             } else {
-                alert("위치 정보를 지원하지 않는 기종입니다.");
+                // 브라우저가 Geolocation을 지원하지 않는 경우 Flutter로부터 위치 데이터를 사용
+                console.log("Geolocation is not supported by this browser.");
+                // Flutter 코드에서 `sendLocation` 함수를 호출해 위치 데이터를 전달할 것입니다.
+                // 예시로 기본 좌표를 설정하고 호출합니다. 실제로는 Flutter가 이 함수를 호출할 것입니다.
+                const defaultLat = 37.5665;  // 서울특별시 예시 좌표
+                const defaultLon = 126.9780;
+                sendLocation(defaultLat, defaultLon);
             }
         }
 
