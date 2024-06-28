@@ -57,26 +57,24 @@
 
         // Flutter로부터 위치 데이터를 받는 함수
         function sendLocation(latitude, longitude) {
-            const currentLat = latitude;
-            const currentLon = longitude;
-
-            // JavaScript 로그로 좌표 출력
-            console.log("Received location from Flutter: Latitude = " + currentLat + ", Longitude = " + currentLon);
+            var currentLat = latitude;
+            var currentLon = longitude;
 
             // 위치 정보를 표시할 HTML 요소가 존재하는지 확인
-            const $latElement = $('#latitude');
-            const $lonElement = $('#longitude');
+            var latElement = document.getElementById('latitude');
+            var lonElement = document.getElementById('longitude');
 
-            if ($latElement.length && $lonElement.length) {
-                $latElement.text("Latitude: " + currentLat);
-                $lonElement.text("Longitude: " + currentLon);
+            if (latElement && lonElement) {
+                latElement.textContent = "Latitude: " + currentLat;
+                lonElement.textContent = "Longitude: " + currentLon;
             } else {
-                console.log("Location elements not found");
+                console.log("위치 정보를 확인할 수 없습니다.");
             }
 
             // Flutter로부터 받은 위치 정보를 기반으로 reverseLabel 함수 호출
             reverseLabel(currentLon, currentLat);
         }
+
 
         
 
