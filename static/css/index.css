@@ -122,7 +122,8 @@ body {
 
 @media (max-width: 480px) {
     .loc_main {
-        font-size: 8vw;
+        font-size: 10vw;
+        margin-top: 30vw;
     }
 
     .loc_type {
@@ -151,4 +152,26 @@ body {
 @keyframes fadeIn {
     from { opacity: 0.5; }
     to { opacity: 1; }
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: var(--bs-modal-color);
+    pointer-events: auto;
+    background-color: var(--bs-modal-bg);
+    background-clip: padding-box;
+    border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+    border-radius: var(--bs-modal-border-radius);
+    outline: 0;
+}
+
+.modal.fade .modal-dialog {
+    position: absolute;
+    bottom: 15vh;
+    top: auto;
+    margin: 0 auto;
+    transform: translate(0, 0);
 }
