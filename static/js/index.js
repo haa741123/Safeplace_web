@@ -1,28 +1,20 @@
-const key = j_config.apikey;
+const key = h_config.apikey;
 const MAX_CONGESTION = 0.4;
-
-
 
 /**
  * TMap JavaScript API를 로드하는 함수
  * @param {string} key - API 키
  */
 function loadTMapScript(key) {
-    $.ajax({
-        url: 'https://apis.openapi.sk.com/tmap/jsv2',
-        data: {
-            version: '1',
-            appKey: key
-        },
-        dataType: 'script',
-        success: () => console.log('로드 완료'),
-        error: (jqxhr, settings, exception) => console.error('TMap JavaScript API 로드 실패', exception)
-    });
+    const script = document.createElement('script');
+    script.src = `/external-api?version=1&appKey=${key}`;
+    script.async = false;
+    script.onload = () => console.log('로드 완료');
+    script.onerror = (error) => console.error('TMap JavaScript API 로드 실패', error);
+    document.head.appendChild(script);
 }
 
 loadTMapScript(key);
-
-
 
 /**
  * 위도와 경도를 받아 위치 정보를 전송하는 함수
@@ -43,16 +35,12 @@ function sendLocation(latitude, longitude) {
     reverseLabel(longitude, latitude);
 }
 
-
-
 /**
  * TMap을 초기화하는 함수
  */
 function initTmap() {
     getCurrentLocation();
 }
-
-
 
 /**
  * 현재 위치를 가져오는 함수
@@ -68,8 +56,6 @@ function getCurrentLocation() {
     }
 }
 
-
-
 /**
  * 현재 위치를 표시하는 함수
  * @param {Position} position - 위치 정보 객체
@@ -80,8 +66,6 @@ function showCurrentLocation(position) {
     reverseLabel(longitude, latitude);
 }
 
-
-
 /**
  * 위치 오류를 처리하는 함수
  * @param {PositionError} error - 오류 정보 객체
@@ -89,8 +73,6 @@ function showCurrentLocation(position) {
 function locationError(error) {
     console.warn(`ERROR(${error.code}): ${error.message}`);
 }
-
-
 
 /**
  * 위도와 경도를 받아 주소를 가져오는 함수
@@ -100,9 +82,11 @@ function locationError(error) {
 function reverseLabel(currentLon, currentLat) {
     $.ajax({
         method: "GET",
-        url: "https://apis.openapi.sk.com/tmap/geo/reverseLabel?version=1&format=json",
+        url: "/reverse-geocode",
         data: {
-            "reqLevel": 15,
+            "version": "1",
+            "format": "json",
+            "reqLevel": "15",
             "centerLon": currentLon,
             "centerLat": currentLat,
             "reqCoordType": "WGS84GEO",
@@ -113,7 +97,7 @@ function reverseLabel(currentLon, currentLat) {
             const { poiInfo } = response;
             if (poiInfo) {
                 const { poiLon, poiLat, id: poiId, name } = poiInfo;
-                const url = `https://apis.openapi.sk.com/tmap/puzzle/pois/${poiId}?format=json&appKey=${key}&lat=${currentLat}&lng=${currentLon}`;
+                const url = `https://warmworld.shop/puzzle/${poiId}?format=json&appKey=${key}&lat=${currentLat}&lng=${currentLon}`;
                 puzzle(url, name);
             } else {
                 console.log("위치 정보를 찾을 수 없습니다.");
@@ -124,8 +108,6 @@ function reverseLabel(currentLon, currentLat) {
         }
     });
 }
-
-
 
 /**
  * 장소 정보와 혼잡도를 가져오는 함수
@@ -163,8 +145,6 @@ function puzzle(url, name) {
     });
 }
 
-
-
 /**
  * 날짜 형식을 변환하는 함수
  * @param {string} datetime - 날짜 시간 문자열
@@ -184,8 +164,6 @@ function formatDate(datetime) {
     return `${year}년 ${month}월 ${day}일 ${hour}:${min} ${period}`;
 }
 
-
-
 /**
  * 혼잡도 단계를 텍스트로 변환하는 함수
  * @param {number} congestionLevel - 혼잡도 단계
@@ -196,8 +174,6 @@ function congestionLevelText(congestionLevel) {
     return levels[congestionLevel] || levels[0];
 }
 
-
-
 /**
  * 혼잡도 상태를 텍스트로 변환하는 함수
  * @param {number} congestionLevel - 혼잡도 단계
@@ -205,10 +181,8 @@ function congestionLevelText(congestionLevel) {
  */
 function statusLevelText(congestionLevel) {
     const statuses = ["알 수 없음", "안전합니다", "보통입니다", "주의하세요", "위험합니다"];
-    return statuses[congestionLevel] || statuses[0];
+    return statuses[congestionLevel] || levels[0];
 }
-
-
 
 /**
  * 혼잡도 값을 애니메이션으로 표시하는 함수
@@ -217,8 +191,8 @@ function statusLevelText(congestionLevel) {
 function animateDensityValue(targetValue) {
     let densityElement = document.getElementById('density_val');
     let currentValue = 0;
-    const duration = 2000; // 2 seconds
-    const increment = targetValue / (duration / 20); // Update every 20ms
+    const duration = 2000;
+    const increment = targetValue / (duration / 20);
 
     function updateValue() {
         currentValue += increment;
@@ -231,8 +205,6 @@ function animateDensityValue(targetValue) {
 
     const interval = setInterval(updateValue, 20);
 }
-
-
 
 /**
  * UI 업데이트 함수
@@ -256,8 +228,6 @@ function updateUI(dateStr, statusText, congestText, densityPercentage, datetime)
     statusElement.classList.toggle('blink', statusText === "주의하세요" || statusText === "위험합니다");
 }
 
-
-
 /**
  * 혼잡도 텍스트에 따라 색상을 반환하는 함수
  * @param {string} congestText - 혼잡도 텍스트
@@ -272,8 +242,6 @@ function getColorForCongestion(congestText) {
     };
     return colors[congestText] || 'black';
 }
-
-
 
 /**
  * 상태 텍스트에 따라 색상을 반환하는 함수
