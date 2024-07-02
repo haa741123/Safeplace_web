@@ -8,11 +8,12 @@ const MAX_CONGESTION = 0.4;
 function loadTMapScript(key) {
     const script = document.createElement('script');
     script.src = `/external-api?version=1&appKey=${key}`;
-    script.async = false;
+    // script.async = false; // 이전에 async를 false로 설정했음
+    document.head.appendChild(script);
     script.onload = () => console.log('로드 완료');
     script.onerror = (error) => console.error('TMap JavaScript API 로드 실패', error);
-    document.head.appendChild(script);
 }
+
 
 loadTMapScript(key);
 
@@ -145,24 +146,33 @@ function puzzle(url, name) {
     });
 }
 
-/**
- * 날짜 형식을 변환하는 함수
- * @param {string} datetime - 날짜 시간 문자열
- * @returns {string} 변환된 날짜 시간 문자열
- */
 function formatDate(datetime) {
     const year = datetime.substr(0, 4);
     const month = datetime.substr(4, 2);
     const day = datetime.substr(6, 2);
-    let hour = parseInt(datetime.substr(8, 2));
-    const min = datetime.substr(10, 2);
-    const period = hour >= 12 ? "PM" : "AM";
+    const hour = datetime.substr(8, 2);
+    const minute = datetime.substr(10, 2);
+    const second = datetime.substr(12, 2);
 
-    if (hour > 12) hour -= 12;
-    if (hour === 0) hour = 12;
+    // ISO 8601 날짜 형식으로 변환 (예: "2024-07-03T07:05:00")
+    const dateStr = `${year}-${month}-${day}T${hour}:${minute}:${second}`;
+    const dateObj = new Date(dateStr);
 
-    return `${year}년 ${month}월 ${day}일 ${hour}:${min} ${period}`;
+    // 날짜 객체가 유효하지 않은 경우, 오류 메시지 출력
+    if (isNaN(dateObj.getTime())) {
+        console.error("Invalid date constructed", dateStr);
+        return "날짜 형식 오류";
+    }
+
+    // 올바른 날짜 형식으로 변환하여 반환
+    const options = {
+        year: 'numeric', month: 'long', day: 'numeric',
+        hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true
+    };
+    return dateObj.toLocaleString('ko-KR', options);
 }
+
+
 
 /**
  * 혼잡도 단계를 텍스트로 변환하는 함수
@@ -190,7 +200,8 @@ function statusLevelText(congestionLevel) {
  */
 function animateDensityValue(targetValue) {
     let densityElement = document.getElementById('density_val');
-    let currentValue = 0;
+    let currentValue = 0; // 초기화를 0으로 변경
+
     const duration = 2000;
     const increment = targetValue / (duration / 20);
 
@@ -200,11 +211,17 @@ function animateDensityValue(targetValue) {
             currentValue = targetValue;
             clearInterval(interval);
         }
-        densityElement.textContent = `${currentValue.toFixed(2)}%`;
+        if (typeof currentValue === 'number') {
+            densityElement.textContent = `${currentValue.toFixed(2)}%`;
+        } else {
+            console.error('currentValue is not a number:', currentValue);
+        }
     }
 
     const interval = setInterval(updateValue, 20);
 }
+
+
 
 /**
  * UI 업데이트 함수
